@@ -45,18 +45,23 @@ if (all === 0)
 else{
   return(
     <div>
-      good {positive}
-      <br/>
-      neutral {equal}
-      <br/>
-      bad {negative}
-      <br/>
-      all {all}
-      <br/>
-      average {aver}
-      <br/>
-      positive {positiveAvg} %
+      <table>
+        <tbody>
+          good {positive}
+          <br/>
+          neutral {equal}
+          <br/>
+          bad {negative}
+          <br/>
+          all {all}
+          <br/>
+          average {aver}
+          <br/>
+          positive {positiveAvg} %
+        </tbody>  
+      </table>
     </div>
+    
     )
   }
 }
