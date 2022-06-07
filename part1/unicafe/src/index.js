@@ -10,17 +10,19 @@ const App = () => {
   return (
     <div>
       <h1>give feedback</h1>
+      {/* Otra manera de setear el estado de las estadisticas
+      
       <button onClick={ () => setGood(good +1) }>good</button>
       <button onClick={ () => setNeutral(neutral +1) }>neutral</button>
       <button onClick={ () => setBad(bad +1) }>bad</button>
-      <br/>
-      <h1>statistics</h1>
-      <Statistics positive = {good} equal = {neutral} negative = {bad} />
-      
+      */}
       <Button name={'good'} func={setGood} value={good} />
       <Button name={'neutral'} func={setNeutral} value={neutral} />
       <Button name={'bad'} func={setBad} value={bad} />
-    </div>
+      <br/>
+      <h1>statistics</h1>
+      <Statistics positive = {good} equal = {neutral} negative = {bad} />
+          </div>
   )
 }
 
@@ -44,23 +46,27 @@ if (all === 0)
   {return <p>No feedback given</p>}
 else{
   return(
-    <div>
+
       <table>
-        <tbody>
-          good {positive}
-          <br/>
-          neutral {equal}
-          <br/>
-          bad {negative}
-          <br/>
-          all {all}
-          <br/>
-          average {aver}
-          <br/>
-          positive {positiveAvg} %
-        </tbody>  
+        <thead>
+            <tr>
+            <td>
+              good {positive}
+              <br/>
+              neutral {equal}
+              <br/>
+              bad {negative}
+              <br/>
+              all {all}
+              <br/>
+              average {aver}
+              <br/>
+              positive {positiveAvg} %
+            </td>  
+          </tr>
+        </thead>
       </table>
-    </div>
+  
     
     )
   }
