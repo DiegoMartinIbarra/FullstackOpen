@@ -2,28 +2,43 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 const App = (props) => {
-  const [selected, setSelected] = useState(0)
-  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
 
+  const [selected, setSelected] = useState(0);
+  const [mostSelected, setMostSelected] = useState(0);
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
+  
   const nextAnecdote = () => {
     setSelected(Math.floor(Math.random() * props.anecdotes.length))
-  }
+  };
 
   const voteAnecdote = () => {
-    const copyOfVotes = { ...votes }
+    const copyOfVotes = [ ...votes ]
     copyOfVotes[selected] += 1
-    setVotes(copyOfVotes)
-  }
+    setVotes(copyOfVotes)   
+
+    let max_val = 0
+    for (let i = 0; i < anecdotes.length; i++){
+      if (copyOfVotes[i] >= max_val){
+        max_val = copyOfVotes[i]
+        setMostSelected(max_val)
+      }
+    }
+    console.log(copyOfVotes.indexOf(max_val))
+
+  };
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {props.anecdotes[selected]}
       <br/>
       <button onClick={voteAnecdote}>Vote</button>
       <button onClick={nextAnecdote}>Next Anecdote</button>
       <br/>
-      Votes {votes[selected]}
-    </div>
+      Has {votes[selected]} Votes
+      <h1>Anecdote with most votes</h1>
+     {mostSelected === 0 ? <p> No votes yet </p> : props.anecdotes[votes.indexOf(mostSelected)]}
+  </div>
   )
 }
 
