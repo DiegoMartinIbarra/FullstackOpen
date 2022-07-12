@@ -11,6 +11,7 @@ const App = () => {
   ]) 
   const [ newName, setNewName ] = useState('')
 
+
   const addPerson = (event) => {
     event.preventDefault()
 
@@ -21,8 +22,17 @@ const App = () => {
       id: persons.length + 1,
     };
 
-    setPersons(persons.concat(newPersonObject ))
-    setNewName('')
+        //Control that person doesnt exist before
+        const existingPerson = persons.find(person => person.name === newPersonObject.name);
+
+        if(!existingPerson){
+          setPersons(persons.concat(newPersonObject))
+          setNewName('')
+        }
+        else{
+          alert('Error '+existingPerson.name+' alredy exists in the numbers.')
+        }
+
   }
 
   const handleNewPerson = (event) => {
