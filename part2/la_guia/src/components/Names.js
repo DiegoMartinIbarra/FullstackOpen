@@ -2,7 +2,7 @@ const Names = ({persons}) => {
 
     return (
            <>
-            <p>{persons.name}</p>
+            <p>{persons.name} {persons.number}</p>
            </>
            )
   }
