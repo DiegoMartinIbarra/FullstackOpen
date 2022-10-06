@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { Filter } from './components/Filter';
+import { importCountries } from './services/services';
 
 const App = () => {
 
@@ -12,7 +13,9 @@ const App = () => {
   const handleFilter = (event) => {
     setFilter(event.target.value)
   }
-/*Recover the data from the API*/
+
+  /*Recover the data from the API*/
+/*Old method 
   useEffect(() => {
     axios
       .get('https://restcountries.com/v3.1/all')
@@ -21,6 +24,13 @@ const App = () => {
         setData(response.data)
       })
   }, [])
+New method */
+  
+useEffect(() => {
+    importCountries().then((data) =>{
+      setData(data)
+    });
+  }, []);
 
   /*Filter of countries */ 
   const serchfilter = (element) => {
@@ -34,11 +44,22 @@ const App = () => {
 
   let printData = serchfilter(filter);
 
+   let countries = [printData.map(countries => countries.name.common )];
+   console.log(countries)
+
+if( countries[0].length > 1  ){
   return (
     <div>
-    <Filter filter={filter} handleFilter={handleFilter} />      
-     {printData.map(countries => <p> {countries.name.common} </p> )}
+    <Filter filter={filter} handleFilter={handleFilter} />    
+    {countries[0].map(idcountry => <p> {idcountry} </p>  )}
     </div>
-  )}
+  )} 
 
+  else {
+    return (
+      <div>   <p>Loading...</p>  </div>
+    )
+    
+  }
+}
 ReactDOM.render(<App />, document.getElementById('root'))
