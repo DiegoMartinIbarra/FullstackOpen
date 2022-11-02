@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Filter } from './components/Filter';
 import { importCountries } from './services/services';
 import {Languages} from './components/Languagues';
+import { ListOfCountries } from './components/ListOfCountries';
 
 const App = () => {
 
@@ -24,8 +25,7 @@ const App = () => {
         console.log('promise fulfilled')
         setData(response.data)
       })
-  }, [])
-New method */
+  }, []) */
   
 useEffect(() => {
     importCountries().then((data) =>{
@@ -45,15 +45,13 @@ useEffect(() => {
 
   let printData = serchfilter(filter);
 
-  let country = [printData.map(country => country)];
   let countries = [printData.map(countries => countries.name.common )];
   let flags = [printData.map(countries => countries.flags.png )];
   let capital = [printData.map(countries => countries.capital )];
   let population = [printData.map(countries => countries.population )];
   let languages = [printData.map(countries => countries.languages )];
-   
-   /* Conditional Rendering */
 
+  /* Conditional Rendering */
   if( countries[0].length > 10  ){
     return (
       <div>
@@ -64,10 +62,7 @@ useEffect(() => {
 
   else if( countries[0].length > 1  ){
     return (
-      <div>
-        <Filter filter={filter} handleFilter={handleFilter} />    
-        {countries[0].map((idcountry, index) => <p key={index}> {idcountry} </p>  )}
-      </div>
+      <ListOfCountries filter={filter} handleFilter={handleFilter} countries={countries} setFilter={setFilter}/>
     )
   }
 
@@ -79,7 +74,7 @@ useEffect(() => {
         capital: {capital} <br/>
         population: {population} <br/>
         <h2>languages</h2>
-        <Languages languages={languages} />
+        <ul><Languages languages={languages} /></ul>
         <img src={flags[0]} />
       </div>  
     )
