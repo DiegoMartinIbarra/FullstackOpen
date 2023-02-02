@@ -1,9 +1,0 @@
-Chanchito feliz
- { persons.map(persons => <Names key={persons.name} persons={persons} />) }
-
- <form onSubmit={addPerson}>
- <div> name: <input value={newName} onChange={handleNewPerson} /> </div>
- <div> number: <input value={newNumber} onChange={handleNewNumber} /> </div>
- <div> <button type="submit">add</button> </div>
-</form>
-+ set REACT_APP_API_KEY='bd48bf8b0ec40e8af38f713f428ac070' && npm start
