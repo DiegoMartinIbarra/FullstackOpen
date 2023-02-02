@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
 import { Filter } from './components/Filter';
-import { importCountries } from './services/services';
+import { importCountries} from './services/services';
 import {Languages} from './components/Languagues';
 import { ListOfCountries } from './components/ListOfCountries';
+import { Wether } from './components/Wether';
 
 const App = () => {
 
@@ -15,23 +15,13 @@ const App = () => {
   const handleFilter = (event) => {
     setFilter(event.target.value)
   }
-
-  /*Recover the data from the API*/
-/*Old method 
-  useEffect(() => {
-    axios
-      .get('https://restcountries.com/v3.1/all')
-      .then(response => {
-        console.log('promise fulfilled')
-        setData(response.data)
-      })
-  }, []) */
   
 useEffect(() => {
     importCountries().then((data) =>{
       setData(data)
     });
   }, []);
+
 
   /*Filter of countries */ 
   const serchfilter = (element) => {
@@ -45,6 +35,7 @@ useEffect(() => {
 
   let printData = serchfilter(filter);
 
+  let id = [printData.map(countries => countries.iid )];
   let countries = [printData.map(countries => countries.name.common )];
   let flags = [printData.map(countries => countries.flags.png )];
   let capital = [printData.map(countries => countries.capital )];
@@ -62,7 +53,7 @@ useEffect(() => {
 
   else if( countries[0].length > 1  ){
     return (
-      <ListOfCountries filter={filter} handleFilter={handleFilter} countries={countries} setFilter={setFilter}/>
+      <ListOfCountries key={id} filter={filter} handleFilter={handleFilter} countries={countries} setFilter={setFilter}/>
     )
   }
 
@@ -76,6 +67,7 @@ useEffect(() => {
         <h2>languages</h2>
         <ul><Languages languages={languages} /></ul>
         <img src={flags[0]} />
+        <Wether country={countries} />
       </div>  
     )
   }
